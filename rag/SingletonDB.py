@@ -43,6 +43,12 @@ class ChromaDBSingleton():
         except Exception as e:
             raise f"Failed to create collection: {e}"
         
+    def delete_chromadb(self,collection_name):
+        chroma_client = self.get_client()
+        output = chroma_client.delete_collection(name=collection_name)
+        print(output)
+
+        
     def create_chroma_db(self,documents, name: str):
         chroma_client = self.get_client()
         db = chroma_client.create_collection(name=name, embedding_function=GeminiEmbeddingFunction())
@@ -59,7 +65,8 @@ if __name__=="__main__":
     db_client = ChromaDBSingleton()
     # print(db_client.create_collection("testing1"))
     document = ["This is a document about pineapple.", "Another document about apples."]
-    print(db_client.create_chroma_db(document,"testing2"))
+    db_client.delete_chromadb("testing3")
+    print(db_client.create_chroma_db(document,"testing3"))
 
     
 

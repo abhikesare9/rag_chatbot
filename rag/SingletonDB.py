@@ -61,12 +61,7 @@ class ChromaDBSingleton():
         return chroma_client.get_collection(name=name, embedding_function=GeminiEmbeddingFunction())
     
 
-if __name__=="__main__":
-    db_client = ChromaDBSingleton()
-    # print(db_client.create_collection("testing1"))
-    document = ["This is a document about pineapple.", "Another document about apples."]
-    db_client.delete_chromadb("testing3")
-    print(db_client.create_chroma_db(document,"testing3"))
+
 
     
 

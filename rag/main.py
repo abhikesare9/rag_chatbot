@@ -7,6 +7,7 @@ from bot.MlEngine import MLEngine
 import uvicorn
 import os
 import shutil
+import uuid
 logger = SingletonLogger().get_logger()
 config = MLConfigParser()
 db_client = ChromaDBSingleton()
@@ -28,11 +29,15 @@ def rag_bot(input_query: str, file: UploadFile = File(...)):
         read_pdf = Utils.load_pdf(file_path)
         split_text = Utils.split_text(read_pdf)
         logger.info("Text extracted from pdf and converted into chunks")
+        
         try:
-            create_db = db_client.create_chroma_db(split_text,file.filename)
+            delete_file = db_client.delete_chromadb(file.filename)
+            db, create_db = db_client.create_chroma_db(split_text,file.filename)
+            logger.info(create_db)
             load_chroma_collection =  db_client.load_chroma_collection(name=file.filename)
+            logger.info(load_chroma_collection)
             try:
-                get_relevent_passage = mlengine.get_relevant_passage(input_query,db_client,n_results=1)
+                get_relevent_passage = str(mlengine.get_relevant_passage(input_query,db,n_results=1))
                 try:
                     make_rag_prompt= mlengine.make_rag_prompt(input_query,get_relevent_passage)
                     try:

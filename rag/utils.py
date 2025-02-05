@@ -14,7 +14,7 @@ class Utils:
         
     @staticmethod
     def split_text(text):
-        return "hello"
+        return [i for i in re.split('\n\n', text) if i.strip()]
 
     @staticmethod
     def load_pdf(file_path):

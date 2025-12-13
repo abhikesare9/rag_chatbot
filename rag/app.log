@@ -274,3 +274,21 @@ About the Author
 2025-12-11 18:24:56,087 - ERROR - Failed to perform db operations Collection [Kubernetes-for-Beginners.pdf] does not exist
 2025-12-11 18:26:31,822 - INFO - Text extracted from pdf and converted into chunks
 2025-12-11 18:26:31,827 - ERROR - Failed to perform db operations Collection [Kubernetes-for-Beginners.pdf] does not exist
+2025-12-13 18:02:12,559 - INFO - db configuration is localhost, 8000
+2025-12-13 18:02:12,990 - INFO - successfully connected to chromadb
+2025-12-13 18:02:32,142 - INFO - Text extracted from pdf and converted into chunks
+2025-12-13 18:02:32,185 - ERROR - Failed to perform db operations Collection [Kubernetes-for-Beginners.pdf] does not exist
+2025-12-13 18:04:27,573 - INFO - db configuration is localhost, 8000
+2025-12-13 18:04:27,790 - INFO - successfully connected to chromadb
+2025-12-13 18:04:40,662 - INFO - Text extracted from pdf and converted into chunks
+2025-12-13 18:04:40,979 - ERROR - Failed to perform db operations 401 API keys are not supported by this API. Expected OAuth2 access token or other authentication credentials that assert a principal. See https://cloud.google.com/docs/authentication [reason: "CREDENTIALS_MISSING"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "generativelanguage.googleapis.com"
+}
+metadata {
+  key: "method"
+  value: "google.ai.generativelanguage.v1beta.GenerativeService.BatchEmbedContents"
+}
+]

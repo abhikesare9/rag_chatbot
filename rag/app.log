@@ -292,3 +292,7 @@ metadata {
   value: "google.ai.generativelanguage.v1beta.GenerativeService.BatchEmbedContents"
 }
 ]
+2025-12-14 06:45:22,426 - INFO - db configuration is localhost, 8000
+2025-12-14 06:45:23,201 - INFO - successfully connected to chromadb
+2025-12-14 06:53:02,890 - INFO - Text extracted from pdf and converted into chunks
+2025-12-14 06:53:02,936 - ERROR - Failed to perform db operations Validation error: name: Expected a name containing 3-512 characters from [a-zA-Z0-9._-], starting and ending with a character in [a-zA-Z0-9]. Got: Power+BI+for+Business+Intelligence.pdf

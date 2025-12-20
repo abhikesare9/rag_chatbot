@@ -3,3 +3,8 @@ rag/__pycache__/
 *.pyc
 rag/pdfs/*
 rag/app.log
+*.tfstate
+*.tfstate.*
+.terraform/
+**/.terraform/*
+.terraform.lock.hcl

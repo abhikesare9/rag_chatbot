@@ -1,0 +1,5 @@
+*/.venv/*
+rag/__pycache__/
+*.pyc
+rag/pdfs/*
+*.log

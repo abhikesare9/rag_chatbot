@@ -2,4 +2,4 @@
 rag/__pycache__/
 *.pyc
 rag/pdfs/*
-*.log
+rag/*.log

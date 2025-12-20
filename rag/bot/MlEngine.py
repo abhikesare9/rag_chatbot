@@ -26,7 +26,7 @@ class MLEngine:
         if not gemini_api_key:
             raise ValueError("Gemini API Key not provided. Please provide GEMINI_API_KEY as an environment variable")
         genai.configure(api_key=gemini_api_key)
-        model = genai.GenerativeModel('gemini-pro')
+        model = genai.GenerativeModel('gemini-3-pro-preview')
         result = model.generate_content(prompt)
         return result.text
     

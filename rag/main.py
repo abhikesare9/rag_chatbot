@@ -31,7 +31,7 @@ def rag_bot(input_query: str, file: UploadFile = File(...)):
         logger.info("Text extracted from pdf and converted into chunks")
         
         try:
-            # delete_file = db_client.delete_chromadb(file.filename)
+            delete_file = db_client.delete_chromadb(file.filename)
             db, create_db = db_client.create_chroma_db(split_text,file.filename)
             logger.info(create_db)
             load_chroma_collection =  db_client.load_chroma_collection(name=file.filename)

@@ -8,4 +8,4 @@ rag/app.log
 .terraform/
 **/.terraform/*
 .terraform.lock.hcl
-*/serviceaccount.jsonInfra/Iac/gcr/sa.json
+*/Infra/Iac/sa.json

@@ -36,7 +36,12 @@ jobs:
 
     - name: 'Build container'
       run: |-
-        docker build -t "${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/mlflow:${{ github.sha }}" -f ../Infra/mlflow/Dockerfile .
+        - name: 'Build container'
+  run: |
+    docker build \
+      -t "${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/mlflow:${{ github.sha }}" \
+      -f Infra/mlflow/Dockerfile \
+      Infra/mlflow
       
     - name: 'Push container'
       run: |-

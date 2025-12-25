@@ -1,0 +1,56 @@
+# Docker build and push container to Artifact Registry, deploy on Cloud Run
+
+name: Deploy MLFlow Server
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  login-build-push:
+    name: Build, Push and Run
+    runs-on: ubuntu-latest
+
+    env:
+      REGION: us-central1                     # edit here
+      PROJECT_ID: daring-night-479819-f3             # edit here
+      REPOSITORY: mlflow    # edit here
+      SERVICE_ACCOUNT: mlflow-server-account@daring-night-479819-f3.iam.gserviceaccount.com
+   # edit here
+      SERVICE_NAME: mlflow-server        # edit here
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - id: 'auth'
+      name: Authenticate to Google Cloud
+      uses: google-github-actions/auth@v1
+      with: 
+        project_id: '${{ env.PROJECT_ID }}'
+        credentials_json: '${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}'
+    
+    - name: 'Docker config'
+      run: |-
+        gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev 
+
+    - name: 'Build container'
+      run: |-
+        docker build -t "${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/mlflow:${{ github.sha }}" .
+      
+    - name: 'Push container'
+      run: |-
+        docker push "${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/mlflow:${{ github.sha }}"
+    
+    - name: Deploy Google Cloud Run
+      run: |
+        gcloud run deploy "${{ env.SERVICE_NAME }}" \
+          --image "${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/mlflow:${{ github.sha }}" \
+          --region "${{ env.REGION }}" \
+          --service-account "${{ env.SERVICE_ACCOUNT }}" \
+          --update-secrets=/secrets/credentials=access_keys:latest \
+          --update-secrets=POSTGRESQL_URL=database_url:latest \
+          --update-secrets=STORAGE_URL=bucket_url:latest \
+          --memory 2Gi \
+          --allow-unauthenticated \
+          --port 8080

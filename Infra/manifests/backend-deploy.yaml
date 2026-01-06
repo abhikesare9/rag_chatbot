@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:       #pod metadata
+  generation: 1
+  labels:
+    app: rag-backend
+  name: rag-backend
+  namespace: default
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 2
+  revisionHistoryLimit: 10  
+  selector:
+    matchLabels:
+      app: rag-backend
+  strategy:
+    rollingUpdate:
+      maxSurge: 50%
+      maxUnavailable: 50%
+    type: RollingUpdate
+  template:          #container template 
+    metadata:
+      labels:
+        app: rag-backend
+    spec:
+      containers:
+      - image: us-central1-docker.pkg.dev/daring-night-479819-f3/rag-backend/newimage
+        imagePullPolicy: Always
+        name: newimage
+        resources: {}  #here you can provide maximum ram and cpu usage limit for the container
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30

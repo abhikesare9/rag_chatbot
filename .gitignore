@@ -9,3 +9,4 @@ rag/app.log
 **/.terraform/*
 .terraform.lock.hcl
 Infra/Iac/sa.json
+rag/Iac/sa-keys.json

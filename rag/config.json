@@ -3,7 +3,7 @@
       "GOOGLE_API_KEY": "AIzaSyAuLIUTUH_YwS0graxD2Qotmg8VeQNeqi8"
     },
     "DB_Config": {
-      "DB_HOST": "localhost",
+      "DB_HOST": "default.chromadb-svc.cluster.local",
       "DB_PORT": "8000"
     }
   }

@@ -1,0 +1,16 @@
+apiVersion: v1
+data:
+  config.json: |-
+    {
+        "MLEngine": {
+          "GOOGLE_API_KEY": "AIzaSyAuLIUTUH_YwS0graxD2Qotmg8VeQNeqi8"
+        },
+        "DB_Config": {
+          "DB_HOST": "34.118.225.117",
+          "DB_PORT": "8000"
+        }
+      }
+kind: ConfigMap
+metadata:
+  name: db-config
+  namespace: default

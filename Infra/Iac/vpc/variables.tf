@@ -6,7 +6,7 @@ variable vpc_name {
 
 variable project_name {
   type        = string
-  default     = "daring-night-479819-f3"
+  default     = "lexical-aileron-483517-f3"
   description = "description"
 }
 variable region {

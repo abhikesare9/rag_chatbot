@@ -1,0 +1,84 @@
+
+data "google_compute_network" "mlops-vpc"{
+  name = var.vpc_name
+}
+
+resource "google_container_cluster" "gke_cluster" {
+  name     = var.clusterName
+  location = "${var.region}-f" # Replace this with your desired region
+  network  = var.vpc_name
+  subnetwork  = data.google_compute_network.mlops-vpc.subnetworks_self_links[3]
+  enable_shielded_nodes    = "true"
+  remove_default_node_pool = true
+  initial_node_count       = 1
+  deletion_protection = "false"
+
+  private_cluster_config {
+    enable_private_nodes = true
+    enable_private_endpoint = false
+    master_ipv4_cidr_block = "172.16.0.0/28"
+  }
+
+  release_channel {
+    channel = "STABLE"
+  }
+
+  addons_config {
+    http_load_balancing {
+      disabled = false
+    }
+  }
+
+  networking_mode = "VPC_NATIVE"
+  ip_allocation_policy {
+    cluster_ipv4_cidr_block  = "/16"
+    services_ipv4_cidr_block = "/22"
+  }
+
+  timeouts {
+    create = "20m"
+    update = "20m"
+  }
+
+  lifecycle {
+    ignore_changes = [node_pool]
+  }
+}
+
+resource "google_container_node_pool" "primary_nodes" {
+  name       = "${var.clusterName}-pool"
+  location   = "${var.region}-f" # Replace this with your desired region
+  cluster    = google_container_cluster.gke_cluster.name
+  node_locations = ["${var.region}-f"]
+  node_count = 1
+
+  management {
+    auto_repair  = true
+    auto_upgrade = true
+  }
+
+  autoscaling {
+    min_node_count = var.minNode
+    max_node_count = var.maxNode
+  }
+
+  timeouts {
+    create = "20m"
+    update = "20m"
+  }
+
+  node_config {
+    preemptible  = true
+    machine_type = var.machineType
+    disk_size_gb = var.diskSize
+    service_account = "default"
+
+    oauth_scopes = [
+      "https://www.googleapis.com/auth/compute",
+      "https://www.googleapis.com/auth/cloud-platform",
+      "https://www.googleapis.com/auth/devstorage.read_only",
+      "https://www.googleapis.com/auth/logging.write",
+      "https://www.googleapis.com/auth/monitoring",
+    ]
+  }
+}

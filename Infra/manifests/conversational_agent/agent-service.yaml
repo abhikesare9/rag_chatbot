@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    cloud.google.com/neg: '{"ingress":true}'
+  labels:
+    app: agent
+  name: agent
+  namespace: default
+spec:
+  allocateLoadBalancerNodePorts: true
+  clusterIP: 34.118.224.159
+  clusterIPs:
+  - 34.118.224.159
+  externalTrafficPolicy: Cluster
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - nodePort: 31863
+    port: 8000
+    protocol: TCP
+    targetPort: 8000
+  selector:
+    app: agent
+  sessionAffinity: None
+  type: LoadBalancer

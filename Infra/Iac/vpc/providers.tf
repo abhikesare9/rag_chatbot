@@ -1,5 +1,5 @@
 provider "google" {
-  credentials = file("../sa.json")
-  project     = "daring-night-479819-f3"
+  credentials = file("../sa-keys.json")
+  project     = "lexical-aileron-483517-f3"
   region      = "us-central1"
 }

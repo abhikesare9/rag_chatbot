@@ -3,16 +3,79 @@ on:
   workflow_dispatch:
 
 jobs:
-  run-manually:
+  Deploy VPC:
     runs-on: ubuntu-latest
-
-
+    env:
+      GOOGLE_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
     steps:
-      - name: Print message
-        run: echo "🎉 This workflow was triggered manually!"
-      
-      - name: Show date
-        run: date
+      - name: Terraform installation...
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.14.3
 
-      - name: List files
-        run: ls -la
+      - name: create secrets file
+        run: |
+          cd Iac
+          echo "${{ secrets.GCP_SA_KEY }}" > sa-keys.json
+      
+      - name: Terraform Init
+        run: |
+          cd Iac/vpc
+          terraform init
+
+      - name: Terraform Plan
+        run: |
+          cd Iac/vpc
+          terraform plan
+
+      - name: Terraform apply
+        run: |
+          cd Iac/vpc
+          terraform apply -auto-approve=true
+
+  Deploy GKE Cluster:
+    runs-on: ubuntu-latest
+    needs: Deploy VPC
+    steps:
+      - name: Terraform installation...
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.14.3
+      
+      - name: Terraform Init
+        run: |
+          cd Iac/gke
+          terraform init
+
+      - name: Terraform Plan
+        run: |
+          cd Iac/gke
+          terraform plan
+
+      - name: Terraform apply
+        run: |
+          cd Iac/gke
+          terraform apply -auto-approve=true
+
+  Deploy GCR:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Terraform installation...
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.14.3
+      
+      - name: Terraform Init
+        run: |
+          cd Iac/gcr
+          terraform init
+
+      - name: Terraform Plan
+        run: |
+          cd Iac/gcr
+          terraform plan
+
+      - name: Terraform apply
+        run: |
+          cd Iac/gcr
+          terraform apply -auto-approve=true

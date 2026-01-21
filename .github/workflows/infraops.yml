@@ -16,6 +16,7 @@ jobs:
       - name: create secrets file
         run: |
           pwd
+          ls
           cd Infra/Iac
           echo "${{ secrets.GCP_SA_KEY }}" > sa-keys.json
       

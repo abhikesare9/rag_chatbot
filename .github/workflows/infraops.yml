@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  Deploy VPC:
+  deploy_vpc:
     runs-on: ubuntu-latest
     env:
       GOOGLE_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
@@ -33,7 +33,7 @@ jobs:
           cd Iac/vpc
           terraform apply -auto-approve=true
 
-  Deploy GKE Cluster:
+  deploy_gke_cluster:
     runs-on: ubuntu-latest
     needs: Deploy VPC
     steps:
@@ -57,7 +57,7 @@ jobs:
           cd Iac/gke
           terraform apply -auto-approve=true
 
-  Deploy GCR:
+  deploy_gcr:
     runs-on: ubuntu-latest
     steps:
       - name: Terraform installation...

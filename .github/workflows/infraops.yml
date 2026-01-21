@@ -35,7 +35,7 @@ jobs:
 
   deploy_gke_cluster:
     runs-on: ubuntu-latest
-    needs: Deploy VPC
+    needs: deploy_vpc
     steps:
       - name: Terraform installation...
         uses: hashicorp/setup-terraform@v3

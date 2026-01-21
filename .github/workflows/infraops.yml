@@ -15,22 +15,22 @@ jobs:
 
       - name: create secrets file
         run: |
-          cd Iac
+          cd Infra/Iac
           echo "${{ secrets.GCP_SA_KEY }}" > sa-keys.json
       
       - name: Terraform Init
         run: |
-          cd Iac/vpc
+          cd Infra/Iac/vpc
           terraform init
 
       - name: Terraform Plan
         run: |
-          cd Iac/vpc
+          cd Infra/Iac/vpc
           terraform plan
 
       - name: Terraform apply
         run: |
-          cd Iac/vpc
+          cd Infra/Iac/vpc
           terraform apply -auto-approve=true
 
   deploy_gke_cluster:
@@ -44,17 +44,17 @@ jobs:
       
       - name: Terraform Init
         run: |
-          cd Iac/gke
+          cd Infra/Iac/gke
           terraform init
 
       - name: Terraform Plan
         run: |
-          cd Iac/gke
+          cd Infra/Iac/gke
           terraform plan
 
       - name: Terraform apply
         run: |
-          cd Iac/gke
+          cd Infra/Iac/gke
           terraform apply -auto-approve=true
 
   deploy_gcr:
@@ -67,15 +67,15 @@ jobs:
       
       - name: Terraform Init
         run: |
-          cd Iac/gcr
+          cd Infra/Iac/gcr
           terraform init
 
       - name: Terraform Plan
         run: |
-          cd Iac/gcr
+          cd Infra/Iac/gcr
           terraform plan
 
       - name: Terraform apply
         run: |
-          cd Iac/gcr
+          cd Infra/Iac/gcr
           terraform apply -auto-approve=true

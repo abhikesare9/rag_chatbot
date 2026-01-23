@@ -1,5 +1,13 @@
+terraform {
+  required_providers {
+    google = {
+      source  = "hashicorp/google"
+      version = "~> 5.0"
+    }
+  }
+}
+
 provider "google" {
-  credentials = file("../sa-keys.json")
-  project     = "lexical-aileron-483517-f3"
-  region      = "us-central1"
+  project = var.project_id
+  region  = var.region
 }

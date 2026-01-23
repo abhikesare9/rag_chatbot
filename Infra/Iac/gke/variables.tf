@@ -27,3 +27,9 @@ variable vpc_name {
   default     = "mlops-vpc"
   description = "vpc-details"
 }
+
+variable project_id {
+  type        = string
+  default     = "lexical-aileron-483517-f3"
+  description = "Project id"
+}

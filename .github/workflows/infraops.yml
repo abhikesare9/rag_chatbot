@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        
+
       - name: Terraform installation...
         uses: hashicorp/setup-terraform@v3
         with:
@@ -20,7 +20,7 @@ jobs:
 
       - name: create secrets file
         run: |
-          cd ../../Infra/Iac/
+          cd Infra/Iac/
           echo "${{ secrets.GCP_SA_KEY }}" > sa-keys.json
       
       - name: Terraform Init

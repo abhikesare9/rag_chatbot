@@ -9,11 +9,6 @@ variable project_name {
   default     = "lexical-aileron-483517-f3"
   description = "description"
 }
-variable region {
-  type        = string
-  default     = "us-central1"
-  description = "region for vpc"
-}
 
 variable machine_type {
   type        = string

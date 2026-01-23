@@ -7,7 +7,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GOOGLE_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
-
+      TF_VAR_project_id: lexical-aileron-483517-f3
+      TF_VAR_region: us-central1
     
     steps:
       - name: Checkout repository

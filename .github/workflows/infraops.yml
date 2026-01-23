@@ -7,7 +7,12 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GOOGLE_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
+
+    
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
       - name: Terraform installation...
         uses: hashicorp/setup-terraform@v3
         with:

@@ -4,7 +4,7 @@ variable "region" {
 }
 variable "clusterName" {
   description = "Name of our Cluster"
-  default="mlops-training"
+  default="mlops-training-test"
 }
 variable "diskSize" {
   description = "Node disk size in GB"
@@ -24,7 +24,7 @@ variable "machineType" {
 }
 variable vpc_name {
   type        = string
-  default     = "mlops-vpc"
+  default     = "mlops-vpc-test"
   description = "vpc-details"
 }
 

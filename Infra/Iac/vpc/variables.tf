@@ -1,6 +1,6 @@
 variable vpc_name {
   type        = string
-  default     = "mlops-vpc"
+  default     = "mlops-vpc-test"
   description = "vpc for mlops"
 }
 

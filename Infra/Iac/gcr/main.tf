@@ -4,7 +4,7 @@ resource "google_project_service" "artifact_registry" {
 
 resource "google_artifact_registry_repository" "docker_repo" {
   location      = "us-central1"
-  repository_id = "rag-backend"
+  repository_id = "rag-backend-test"
   description   = "Docker repo for container images"
   format        = "DOCKER"
 
@@ -15,7 +15,7 @@ resource "google_artifact_registry_repository" "docker_repo" {
 
 resource "google_artifact_registry_repository" "docker_repo_for_agent" {
   location      = "us-central1"
-  repository_id = "agent-repo"
+  repository_id = "agent-repo-test"
   description   = "Docker repo for container images"
   format        = "DOCKER"
 
